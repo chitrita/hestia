@@ -95,15 +95,17 @@ def train(train_file, depth, widen_factor, drop_rate, batch_size, epoch_limit, l
                 total_images += (x.size(0) * seq_len)
 
             if debug_mode:
+                avg_loss = total_loss / total_images if total_images else 0
                 sys.stderr.write(TextColor.CYAN + "EPOCH: " + str(epoch) + " Batches done: " + str(i + 1))
-                sys.stderr.write(" Loss: " + str(total_loss / total_images) + "\n" + TextColor.END)
-                print(str(epoch) + "\t" + str(i + 1) + "\t" + str(total_loss/total_images))
+                sys.stderr.write(" Loss: " + str(avg_loss) + "\n" + TextColor.END)
+                print(str(epoch) + "\t" + str(i + 1) + "\t" + str(avg_loss))
 
         # After each epoch print loss and save model if debug mode is on
         if debug_mode:
+            avg_loss = total_loss / total_images if total_images else 0
             sys.stderr.write(TextColor.CYAN + 'EPOCH: ' + str(epoch))
-            sys.stderr.write(' Loss: ' + str(total_loss / total_images) + "\n" + TextColor.END)
-            print(str(epoch) + "\t" + str(total_loss / total_images))
+            sys.stderr.write(' Loss: ' + str(avg_loss) + "\n" + TextColor.END)
+            print(str(epoch) + "\t" + str(avg_loss))
 
     if debug_mode:
         sys.stderr.write(TextColor.PURPLE + 'Finished training\n' + TextColor.END)

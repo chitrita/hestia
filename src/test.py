@@ -110,8 +110,9 @@ def test(model, test_file, batch_size, num_classes, gpu_mode, seq_len, debug_mod
 
     correctly_predicted = torch.sum(confusion_tensor.diag())
     total_datapoints = torch.sum(confusion_tensor)
-    accuracy = 100 * correctly_predicted / total_datapoints
-    total_test_loss = test_loss / total_datapoint
+
+    accuracy = 100 * correctly_predicted / total_datapoints if total_datapoint else 0
+    total_test_loss = test_loss / total_datapoint if total_datapoint else 0
 
     if debug_mode:
         sys.stderr.write(TextColor.RED + 'ACCURACY: ' + str(accuracy) + "\n" + TextColor.END)
