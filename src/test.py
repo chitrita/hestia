@@ -71,7 +71,7 @@ def test(model, test_file, batch_size, num_classes, gpu_mode, seq_len, debug_mod
             # Get prediction in probability
             preds = model(x)
             labels = Variable(pl[:, row:row + seq_len], volatile=True)
-
+            print(type(preds), type(labels))
             # Calculate the loss and keep track of it
             loss = criterion(preds.contiguous().view(-1, num_classes), labels.contiguous().view(-1))
             test_loss += loss.data[0]
