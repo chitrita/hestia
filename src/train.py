@@ -34,7 +34,7 @@ def train(train_file, depth, widen_factor, drop_rate, batch_size, epoch_limit, l
         sys.stderr.write(TextColor.PURPLE + 'Data loading finished\n' + TextColor.END)
 
     # Create the model to train
-    input_channels = 3
+    input_channels = 4
     model = Model(input_channels, depth, num_classes, widen_factor, drop_rate)
     if gpu_mode:
         model = torch.nn.DataParallel(model).cuda()
@@ -95,14 +95,15 @@ def train(train_file, depth, widen_factor, drop_rate, batch_size, epoch_limit, l
                 total_images += (x.size(0) * seq_len)
 
             if debug_mode:
-                sys.stderr.write(TextColor.BLUE + "EPOCH: " + str(epoch) + " Batches done: " + str(i + 1))
+                sys.stderr.write(TextColor.CYAN + "EPOCH: " + str(epoch) + " Batches done: " + str(i + 1))
                 sys.stderr.write(" Loss: " + str(total_loss / total_images) + "\n" + TextColor.END)
-                # print(str(epoch) + "\t" + str(i + 1) + "\t" + str(total_loss/total_images))
+                print(str(epoch) + "\t" + str(i + 1) + "\t" + str(total_loss/total_images))
 
         # After each epoch print loss and save model if debug mode is on
         if debug_mode:
-            sys.stderr.write(TextColor.YELLOW + 'EPOCH: ' + str(epoch))
+            sys.stderr.write(TextColor.CYAN + 'EPOCH: ' + str(epoch))
             sys.stderr.write(' Loss: ' + str(total_loss / total_images) + "\n" + TextColor.END)
+            print(str(epoch) + "\t" + str(total_loss / total_images))
 
     if debug_mode:
         sys.stderr.write(TextColor.PURPLE + 'Finished training\n' + TextColor.END)

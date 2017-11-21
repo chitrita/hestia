@@ -111,7 +111,10 @@ def test(model, test_file, batch_size, num_classes, gpu_mode, seq_len, debug_mod
     total_test_loss = test_loss / total_datapoint
 
     if debug_mode:
-        print(confusion_tensor)
+        sys.stderr.write(TextColor.RED + 'ACCURACY: ' + str(accuracy) + "\n" + TextColor.END)
+        sys.stderr.write(TextColor.RED + 'CONFUSION TENSOR: '+ str(confusion_tensor) + "\n" + TextColor.END)
+        print('Accuracy: ', accuracy)
+        print('Confusion meter:\n', confusion_tensor)
 
     return {'loss': total_test_loss, 'accuracy': accuracy}
 

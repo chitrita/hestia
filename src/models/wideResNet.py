@@ -90,7 +90,7 @@ class Model(nn.Module):
         # global average pooling and classifier
         self.bn1 = nn.BatchNorm2d(nChannels[3])
         self.relu = nn.ReLU(inplace=True)
-        self.fc = nn.Linear(nChannels[3] * 19, num_classes)
+        self.fc = nn.Linear(nChannels[3] * 50, num_classes)
         self.nChannels = nChannels[3]
         self.num_classes = num_classes
 
@@ -113,7 +113,6 @@ class Model(nn.Module):
         out = self.block2(out)
         out = self.block3(out)
         out = self.relu(self.bn1(out))
-        out = F.avg_pool2d(out, (1, 2))
         out = out.view(batch_size, seq_len, -1)
         out = self.fc(out)
         return out
